@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="mynote" schema="public" type="PostgreSQL - 15.2 (Ubuntu 15.2-1.pgdg20.04+1)">
+   <sequences>
+      <sequence increment="1" name="group_member_id_seq" startValue="1"/>
+      <sequence increment="1" name="group_subtype_id_seq" startValue="1"/>
+      <sequence increment="1" name="subtype_note_group_id_seq" startValue="1"/>
+      <sequence increment="1" name="subtype_note_group_subtype_group_seq" startValue="1"/>
+      <sequence increment="1" name="theme_member_id_seq" startValue="1"/>
+   </sequences>
+   <tables>
+      <table name="databasechangelog" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="author" nullable="false" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="filename" nullable="false" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="dateexecuted" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="orderexecuted" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="exectype" nullable="false" remarks="" size="10" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="md5sum" nullable="true" remarks="" size="35" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="description" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="comments" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="tag" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="liquibase" nullable="true" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="contexts" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="labels" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="deployment_id" nullable="true" remarks="" size="10" type="varchar" typeCode="12"/>
+      </table>
+      <table name="databasechangeloglock" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="locked" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="lockgranted" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="lockedby" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="databasechangeloglock_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="group_member" numRows="7" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('group_member_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="group_note" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="group_member_group_note_fkey" implied="false" onDeleteCascade="true" schema="public" table="group_note"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="member" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="group_member_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="member"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="role" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="isconfirmed" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="isdeleted" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="userfrom" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="group_member_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_group_member" unique="false">
+            <column ascending="true" name="group_note"/>
+            <column ascending="true" name="member"/>
+         </index>
+      </table>
+      <table name="group_note" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <child column="group_note" foreignKey="group_member_group_note_fkey" implied="false" onDeleteCascade="true" schema="public" table="group_member"/>
+            <child column="group_note" foreignKey="group_subtype_group_note_fkey" implied="false" onDeleteCascade="true" schema="public" table="group_subtype"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="avatar" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="userfrom" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="group_note_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="group_note_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="group_subtype" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('group_subtype_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial" typeCode="-5">
+            <child column="subtype_group" foreignKey="subtype_note_group_subtype_group_fkey" implied="false" onDeleteCascade="true" schema="public" table="subtype_note_group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="group_note" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="group_subtype_group_note_fkey" implied="false" onDeleteCascade="true" schema="public" table="group_note"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="subtype" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="group_subtype_subtype_fkey" implied="false" onDeleteCascade="true" schema="public" table="subtype"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="index" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="color" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="group_subtype_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_group_subtype" unique="false">
+            <column ascending="true" name="group_note"/>
+            <column ascending="true" name="subtype"/>
+            <column ascending="true" name="index"/>
+         </index>
+      </table>
+      <table name="login" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="member" nullable="false" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="login_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="member"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="token" nullable="true" remarks="" size="5000" type="varchar" typeCode="12"/>
+         <primaryKey column="member" sequenceNumberInPK="1"/>
+         <index name="login_pkey" unique="true">
+            <column ascending="true" name="member"/>
+         </index>
+      </table>
+      <table name="member" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <child column="member" foreignKey="group_member_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="group_member"/>
+            <child column="member" foreignKey="login_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="login"/>
+            <child column="member" foreignKey="note_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="note"/>
+            <child column="member" foreignKey="theme_member_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="theme_member"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="password" nullable="true" remarks="" size="1000" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="avatar" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="userfrom" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="member_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="member_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="note" numRows="63" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <child column="note" foreignKey="subtype_note_group_note_fkey" implied="false" onDeleteCascade="true" schema="public" table="subtype_note_group"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="keynotes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="createdby" nullable="true" remarks="" size="300" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="LOCALTIMESTAMP" digits="6" id="5" name="createddate" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="lastmodifiedby" nullable="true" remarks="" size="300" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="LOCALTIMESTAMP" digits="6" id="7" name="lastmodifieddate" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="subtype" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="note_subtype_fkey" implied="false" onDeleteCascade="true" schema="public" table="subtype"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="member" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="note_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="member"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="category" nullable="true" remarks="" size="500" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="severity" nullable="true" remarks="" size="500" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="note_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_note" unique="false">
+            <column ascending="true" name="title"/>
+            <column ascending="true" name="category"/>
+            <column ascending="false" name="lastmodifieddate"/>
+         </index>
+      </table>
+      <table name="subtype" numRows="9" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <child column="subtype" foreignKey="group_subtype_subtype_fkey" implied="false" onDeleteCascade="true" schema="public" table="group_subtype"/>
+            <child column="subtype" foreignKey="note_subtype_fkey" implied="false" onDeleteCascade="true" schema="public" table="note"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="color" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="subtype_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_subtype" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="subtype_note_group" numRows="31" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('subtype_note_group_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial" typeCode="-5"/>
+         <column autoUpdated="true" defaultValue="nextval('subtype_note_group_subtype_group_seq'::regclass)" digits="0" id="1" name="subtype_group" nullable="false" remarks="" size="19" type="bigserial" typeCode="-5">
+            <parent column="id" foreignKey="subtype_note_group_subtype_group_fkey" implied="false" onDeleteCascade="true" schema="public" table="group_subtype"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="note" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="subtype_note_group_note_fkey" implied="false" onDeleteCascade="true" schema="public" table="note"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="subtype_note_group_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_subtype_note_group" unique="false">
+            <column ascending="true" name="subtype_group"/>
+         </index>
+      </table>
+      <table name="theme" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="uuid_generate_v4()" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <child column="theme" foreignKey="theme_member_theme_fkey" implied="false" onDeleteCascade="true" schema="public" table="theme_member"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="background_color" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="background_images" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="border_color" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="note_background" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="note_foreground" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="createdby" nullable="true" remarks="" size="300" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="LOCALTIMESTAMP" digits="6" id="8" name="createddate" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="foreground_color" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="danger_background" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="danger_foreground" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="info_background" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="info_foreground" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="default_background" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="default_foreground" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="theme_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="theme_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="theme_member" numRows="30" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('theme_member_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="theme" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="theme_member_theme_fkey" implied="false" onDeleteCascade="true" schema="public" table="theme"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="member" nullable="true" remarks="" size="2147483647" type="uuid" typeCode="1111">
+            <parent column="id" foreignKey="theme_member_member_fkey" implied="false" onDeleteCascade="true" schema="public" table="member"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="isactive" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="theme_member_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="idx_theme_member" unique="false">
+            <column ascending="true" name="theme"/>
+            <column ascending="true" name="member"/>
+         </index>
+      </table>
+   </tables>
+</database>
