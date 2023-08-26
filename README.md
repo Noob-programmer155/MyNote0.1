@@ -9,9 +9,11 @@ for paper you can access here: _not yet available_
 - Load Test Full: [here](https://drive.google.com/file/d/1u9RmVe60cxs7DKjjG81PlkmH-2vushGv/view?usp=sharing)
 
 ## Screenshot Project
-![Screenshot6](https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/3d9bf639-eea6-485c-82fe-9325a47f3dd5)
-![Screenshot5](https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/b0496a6c-8af0-42e8-97a7-571fa5c511db)
-![Screenshot4](https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/fd7d82d9-7c86-4a15-91a1-f9f130cd70b0)
-![Screenshot3](https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/3328befd-7f85-4bbf-a934-7b7841e39b3b)
-![Screenshot2](https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/943d8175-8238-40b5-8d5c-743e26f1460f)
-![Screenshot1](https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/35c21b30-ce88-4e86-8ab5-a0551d4dfe34)
+<p align='center'>
+  <img src='https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/3d9bf639-eea6-485c-82fe-9325a47f3dd5' style="width:300px;height:500px"/>
+  <img src='https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/b0496a6c-8af0-42e8-97a7-571fa5c511db' style="width:300px;height:500px"/>
+  <img src='https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/fd7d82d9-7c86-4a15-91a1-f9f130cd70b0' style="width:300px;height:500px"/>
+  <img src='https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/3328befd-7f85-4bbf-a934-7b7841e39b3b' style="width:900px;height:500px"/>
+  <img src='https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/943d8175-8238-40b5-8d5c-743e26f1460f' style="width:900px;height:500px"/>
+  <img src='https://github.com/Noob-programmer155/MyNote0.1/assets/68941228/35c21b30-ce88-4e86-8ab5-a0551d4dfe34' style="width:900px;height:500px"/>
+</p>
